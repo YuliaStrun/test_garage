@@ -1,0 +1,41 @@
+@import 'styles/config/mixins';
+
+.wrapper {
+  width: 100%;
+}
+
+.slider-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin: -4px;
+  padding: 4px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include media-breakpoint-up(md) {
+    gap: 5px;
+  }
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 auto;
+  width: 65%;
+
+  @include media-breakpoint-up(md) {
+    width: calc(50% - 2.5px);
+  }
+
+  @include media-breakpoint-up(lgm) {
+    width: calc(33.3333% - 3.3333px);
+  }
+}
+
+.scrollbar {
+  @include grid;
+}

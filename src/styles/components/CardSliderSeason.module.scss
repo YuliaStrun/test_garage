@@ -1,0 +1,73 @@
+@import 'styles/config/mixins';
+
+.image {
+  object-fit: cover;
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 100%;
+
+  @include hover {
+    &:focus-within,
+    &:hover {
+      transition: text-shadow 0.3s ease-out;
+      text-shadow: 0 0 4px rgb(0 0 0 / 25%);
+
+      &::after {
+        position: absolute;
+        inset: 0;
+        margin: -3px;
+        content: '';
+        border-width: 1px;
+        border-image: url('~assets/img/button-border.svg') 1 round;
+      }
+
+      .image {
+        transition: box-shadow 0.3s ease-out;
+        box-shadow: 0 0 4px rgb(0 0 0 / 25%);
+      }
+    }
+  }
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 5px;
+
+  @include media-breakpoint-down(md) {
+    padding-bottom: calc(259 / 294 * 100%);
+  }
+
+  @include media-breakpoint-down(lg) {
+    padding-bottom: calc(319 / 362 * 100%);
+  }
+
+  @include media-breakpoint-up(lg) {
+    height: 410px;
+  }
+}
+
+.title {
+  @include text-t-3;
+
+  @include media-breakpoint-up(md) {
+    width: 80%;
+  }
+}
+
+.tracks {
+  @include text-menu;
+
+  flex-grow: 1;
+  margin-top: 5px;
+}
+
+.listen {
+  position: relative;
+  z-index: 1;
+  margin-top: 10px;
+}

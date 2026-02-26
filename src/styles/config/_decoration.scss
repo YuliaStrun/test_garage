@@ -1,0 +1,46 @@
+@use 'sass:color';
+
+@mixin underlined {
+  padding-bottom: 1px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin ellipsis-lines($count: 2) {
+  display: -webkit-box; /* stylelint-disable value-no-vendor-prefix */
+  -webkit-line-clamp: $count;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    visibility: hidden;
+    width: 0;
+    background: transparent;
+  }
+}
+
+@mixin border-dotted($direction: 'top', $color: $color-white) {
+  $view-box: if($direction == 'top' or $direction == 'bottom', '0 0 4 1', '0 0 1 4');
+  $path: if($direction == 'top' or $direction == 'bottom', 'M0 0.5H1', 'M0.5 0L0.5 1');
+  $repeat: if($direction == 'top' or $direction == 'bottom', 'repeat-x', 'repeat-y');
+  $size: if($direction == 'top' or $direction == 'bottom', '4px 1px', '1px 4px');
+
+  background-image: url('data:image/svg+xml,<svg width="4" height="1" viewBox="' + $view-box + '" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="' + $path + '" stroke="rgba(' + color.red(
+      $color
+    ) + ', ' + color.green($color) + ', ' + color.blue($color) + ')"/></svg>');
+  background-repeat: #{$repeat};
+  background-position: #{$direction};
+  background-size: #{$size};
+}

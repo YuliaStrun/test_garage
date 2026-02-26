@@ -1,0 +1,6 @@
+/* Enable hover only on non-touch devices */
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

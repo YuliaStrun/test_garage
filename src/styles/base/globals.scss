@@ -1,0 +1,75 @@
+@import 'styles/config/mixins';
+
+[class^='icon-'],
+[class*=' icon-'] {
+  @include icon;
+}
+
+.sr-only {
+  @include sr-only;
+}
+
+.mobile-only {
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}
+
+.tablet-only {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.desktop-only {
+  @include media-breakpoint-down(lg) {
+    display: none;
+  }
+}
+
+.js-focus-visible :focus {
+  outline: 2px solid $color-red;
+  outline-offset: 0;
+}
+
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  scroll-padding-top: 57px;
+
+  @include media-breakpoint-up(md) {
+    scroll-padding-top: 92px;
+  }
+}
+
+body {
+  height: 100%;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+main {
+  flex: 1;
+}
+
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: black;
+}

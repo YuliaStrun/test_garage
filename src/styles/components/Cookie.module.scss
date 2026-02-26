@@ -1,0 +1,40 @@
+@import 'styles/config/mixins';
+
+.cookie {
+  @include text-menu;
+
+  position: fixed;
+  z-index: $z-cookie;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  padding: 20px;
+  cursor: default;
+  color: $color-white;
+  background-color: $color-black;
+
+  @include media-breakpoint-up(mdm) {
+    right: 42px;
+    bottom: 67px;
+    left: auto;
+    width: 320px;
+  }
+}
+
+.text {
+  flex-grow: 1;
+  white-space: pre-wrap;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  margin-left: 10px;
+  padding: 0 20px;
+  text-transform: uppercase;
+  color: $color-black;
+  background-color: $color-white;
+}

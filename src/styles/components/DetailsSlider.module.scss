@@ -1,0 +1,106 @@
+@import 'styles/config/mixins';
+
+.slider {
+  margin-bottom: 40px;
+}
+
+.splide {
+  z-index: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 71 / 44;
+  background-color: $color-black;
+
+  @include media-breakpoint-up(md) {
+    aspect-ratio: 17 / 10;
+  }
+}
+
+.image {
+  object-fit: contain;
+  margin: auto;
+
+  &_full-width {
+    height: auto !important;
+  }
+
+  &_full-height {
+    width: auto !important;
+  }
+}
+
+.caption {
+  @include text-italic;
+
+  margin-top: 16px;
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  transition: opacity 0.2s ease;
+  transform: translateY(-50%);
+
+  &_left {
+    left: 0;
+  }
+
+  &_right {
+    right: 0;
+  }
+
+  @include hover {
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+.arrow {
+  width: 8px;
+  height: 14px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+
+  &_left {
+    border-right: 8px solid $color-white;
+  }
+
+  &_right {
+    border-left: 8px solid $color-white;
+  }
+
+  @include media-breakpoint-up(md) {
+    width: 11px;
+    height: 19px;
+    border-top: 9.5px solid transparent;
+    border-bottom: 9.5px solid transparent;
+
+    &_left {
+      border-right: 11px solid $color-white;
+    }
+
+    &_right {
+      border-left: 11px solid $color-white;
+    }
+  }
+}

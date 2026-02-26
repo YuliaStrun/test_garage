@@ -1,0 +1,93 @@
+@import 'styles/config/mixins';
+
+.content {
+  @include text-p-3;
+
+  white-space: pre-wrap;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    margin-bottom: 40px;
+  }
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  a[href] {
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+
+    @include hover {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  :global(h1) {
+    @include text-t-1;
+  }
+
+  :global(h2) {
+    @include text-t-2;
+  }
+
+  :global(h3) {
+    @include text-t-3;
+  }
+
+  :global(h4) {
+    @include text-t-4;
+  }
+
+  :global(.p_1) {
+    @include text-p-1;
+
+    @include media-breakpoint-down(md) {
+      @include text-p-2;
+    }
+  }
+
+  :global(.p_2) {
+    @include text-p-2;
+  }
+
+  :global(.p_4) {
+    @include text-p-4;
+  }
+
+  :global(.caption) {
+    @include text-italic;
+
+    margin-top: -20px;
+
+    @include media-breakpoint-up(md) {
+      margin-top: -25px;
+    }
+  }
+
+  :global(.media + .caption) {
+    margin-top: 10px;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 15px;
+    }
+  }
+
+  &:global(#bio) {
+    img {
+      width: calc((100% + 10px) / 3 * 2 - 10px) !important;
+
+      @include media-breakpoint-up(md) {
+        width: calc((100% + 5px) / 3 - 5px) !important;
+      }
+    }
+  }
+}

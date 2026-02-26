@@ -1,0 +1,41 @@
+@import 'styles/config/mixins';
+
+.scrollbar {
+  grid-column: 1 / -1;
+  margin-top: 50px;
+
+  @include media-breakpoint-up(md) {
+    grid-column: 2 / -2;
+  }
+
+  @include media-breakpoint-up(lgm) {
+    grid-column: 3 / -3;
+  }
+}
+
+.track {
+  height: 8px;
+  border: 1px solid $color-black;
+
+  --width-thumb: var(--width);
+
+  @include media-breakpoint-up(md) {
+    --width-thumb: calc(var(--width) * 2);
+  }
+
+  @include media-breakpoint-up(lg) {
+    height: 10px;
+  }
+
+  @include media-breakpoint-up(lgm) {
+    --width-thumb: calc(var(--width) * 3);
+  }
+}
+
+.thumb {
+  left: calc(var(--progress) * (100% - var(--width-thumb))) !important;
+  width: var(--width-thumb);
+  height: 100%;
+  transform: none !important;
+  background-color: $color-black;
+}

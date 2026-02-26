@@ -1,0 +1,7 @@
+src/styles/base/icon-codes.css
+src/styles/base/preflight.scss
+
+src/styles/config/_breakpoints.scss
+src/styles/config/_icons.scss
+src/styles/config/_placeholder.scss
+src/styles/config/variables.scss

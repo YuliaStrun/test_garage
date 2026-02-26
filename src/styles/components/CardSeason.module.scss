@@ -1,0 +1,90 @@
+@import 'styles/config/mixins';
+
+.card {
+  @include grid;
+
+  position: relative;
+  grid-template-areas:
+    'image image image image image image'
+    'title title title title title title'
+    'tracks tracks tracks tracks tracks tracks'
+    'controls controls controls controls controls controls'
+    'description description description description description description';
+  grid-template-rows: auto auto 1fr;
+
+  @include media-breakpoint-up(md) {
+    grid-template-areas:
+      'title title title title title title image image image image image image'
+      'tracks tracks tracks tracks tracks tracks image image image image image image'
+      'controls controls controls controls controls controls image image image image image image'
+      '. . . . . . description description description description description description';
+  }
+
+  @include media-breakpoint-up(mdm) {
+    grid-template-areas:
+      'image image image image title title title . description description description description'
+      'image image image image tracks tracks tracks . description description description description'
+      'image image image image controls controls controls . description description description description';
+  }
+}
+
+.title {
+  @include text-t-3;
+
+  grid-area: title;
+}
+
+.tracks {
+  @include text-menu;
+
+  grid-area: tracks;
+  margin-top: 5px;
+}
+
+.controls {
+  display: flex;
+  grid-area: controls;
+  column-gap: 5px;
+  margin-top: 10px;
+}
+
+.description {
+  @include text-p-4;
+
+  grid-area: description;
+  line-height: 20px;
+
+  @include media-breakpoint-down(md) {
+    @include text-p-3;
+
+    margin-top: 20px;
+    line-height: 24px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include text-p-3;
+
+    line-height: 24px;
+  }
+}
+
+.image-wrapper {
+  position: relative;
+  grid-area: image;
+  margin-bottom: 20px;
+  padding-bottom: calc(350 / 463 * 100%);
+
+  @include media-breakpoint-up(mdm) {
+    margin-bottom: 0;
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.about {
+  @include media-breakpoint-up(mdm) {
+    display: none;
+  }
+}

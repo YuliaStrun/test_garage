@@ -1,0 +1,45 @@
+@import 'styles/config/mixins';
+
+.title {
+  @include text-t-2;
+
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  margin-right: 10px;
+  margin-bottom: 33px;
+  margin-left: 10px;
+  word-break: break-word;
+  color: $color-white;
+
+  @include media-breakpoint-up(sm) {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+
+  @include media-breakpoint-up(md) {
+    @include text-t-1;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    @include text-t-2;
+  }
+
+  @include media-breakpoint-up(lgm) {
+    @include text-t-1;
+  }
+}
+
+.season {
+  @include text-menu;
+
+  display: block;
+  margin-bottom: 2px;
+}
+
+.image {
+  object-fit: cover;
+}

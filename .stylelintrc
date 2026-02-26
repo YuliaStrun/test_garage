@@ -1,0 +1,9 @@
+{
+  "plugins": ["stylelint-order"],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-pk"],
+  "rules": {
+    "selector-id-pattern": null,
+    "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["global"] }],
+    "selector-class-pattern": "^_?[a-z0-9]+(-[a-z0-9]+|_[a-z0-9]+)*$"
+  }
+}

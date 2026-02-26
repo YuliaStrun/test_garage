@@ -1,0 +1,44 @@
+@import 'styles/config/mixins';
+
+.modal {
+  position: fixed;
+  z-index: $z-episodes;
+  inset: 0 -100% 0 100%;
+  transition:
+    right ease var(--animate-duration),
+    left ease var(--animate-duration);
+
+  &.open {
+    right: 0;
+    left: 0;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    display: none;
+  }
+}
+
+.episodes {
+  position: relative;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.close {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  left: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid $color-black;
+  background-color: $color-white;
+  font-size: 52px;
+
+  @include media-breakpoint-up(sm) {
+    top: 0;
+  }
+}

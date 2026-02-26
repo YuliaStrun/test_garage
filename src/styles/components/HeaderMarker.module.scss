@@ -1,0 +1,31 @@
+@import 'styles/config/mixins';
+
+.wrapper {
+  position: absolute;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+  inset: 0;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+
+  @include hover {
+    display: block;
+  }
+}
+
+.marker {
+  pointer-events: none;
+
+  @include hover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -2px;
+    transition: left linear 0.2s;
+    border-right: 1px solid $color-red;
+    border-left: 1px solid $color-red;
+  }
+}

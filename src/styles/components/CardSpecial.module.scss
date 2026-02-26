@@ -1,0 +1,178 @@
+@import 'styles/config/mixins';
+
+.wrapper {
+  @include grid;
+
+  @include hover {
+    transition: text-shadow 0.3s ease-out;
+
+    img {
+      transition: box-shadow 0.3s ease-out;
+    }
+
+    &:hover {
+      text-shadow: 0 0 4px rgb(0 0 0 / 25%);
+
+      img {
+        box-shadow: 0 0 4px rgb(0 0 0 / 25%);
+      }
+    }
+
+    &:hover::before,
+    &:hover::after {
+      position: absolute;
+      inset: -3px 0;
+      content: '';
+      pointer-events: none;
+    }
+
+    &:hover::before {
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-image: url('~assets/img/button-border.svg') 1 round;
+    }
+
+    &:hover::after {
+      border-right: 12px solid $color-red;
+      border-left: 12px solid $color-red;
+
+      @include media-breakpoint-down(md) {
+        border-right-width: 8px;
+        border-left-width: 8px;
+      }
+    }
+  }
+}
+
+.card {
+  @include grid;
+  @include text-menu;
+
+  grid-template-areas:
+    'image image image title title title'
+    'image image image season season season'
+    'image image image author author author'
+    'image image image controls controls controls';
+  grid-template-rows: auto auto 1fr auto;
+  width: 100%;
+
+  &:not(.short) {
+    max-width: 1440px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    @include media-breakpoint-up(md) {
+      grid-template-areas:
+        '. . image image image image title title title title . .'
+        '. . image image image image season season season season . .'
+        '. . image image image image author author author author . .'
+        '. . image image image image controls controls controls controls . .';
+    }
+
+    @include media-breakpoint-up(lgm) {
+      grid-template-areas:
+        '. . . image image image title title title . . .'
+        '. . . image image image season season season . . .'
+        '. . . image image image author author author . . .'
+        '. . . image image image controls controls controls . . .';
+    }
+  }
+
+  &.short {
+    grid-column: 1 / -1;
+
+    @include media-breakpoint-up(md) {
+      grid-template-areas:
+        'image image image image title title title title'
+        'image image image image season season season season'
+        'image image image image author author author author'
+        'image image image image controls controls controls controls';
+      grid-template-columns: repeat(8, 1fr);
+      grid-column: 3 / -3;
+    }
+
+    @include media-breakpoint-up(lgm) {
+      grid-template-areas:
+        'image image image title title title'
+        'image image image season season season'
+        'image image image author author author'
+        'image image image controls controls controls';
+      grid-template-columns: repeat(6, 1fr);
+      grid-column: 4 / -4;
+    }
+  }
+}
+
+.link {
+  display: flex;
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: 3 / -3;
+  }
+
+  @include media-breakpoint-up(lgm) {
+    grid-column: 4 / -4;
+  }
+}
+
+.title {
+  grid-area: title;
+}
+
+.season {
+  grid-area: season;
+  margin-top: 2px;
+  color: $color-gray-3;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  grid-area: author;
+  margin-top: 20px;
+  margin-bottom: auto;
+
+  &-image {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    object-fit: cover;
+  }
+}
+
+.controls {
+  display: flex;
+  grid-area: controls;
+}
+
+.restriction {
+  @include text-small;
+
+  height: 20px;
+  margin-left: 2px;
+  padding-top: 2px;
+  padding-right: 5px;
+  padding-left: 5px;
+  border: 1px solid $color-black;
+}
+
+.image-wrapper {
+  position: relative;
+  grid-area: image;
+  padding-bottom: calc(152 / 173 * 100%);
+
+  @include media-breakpoint-up(md) {
+    padding-bottom: calc(152 / 240 * 100%);
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-bottom: calc(180 / 347 * 100%);
+  }
+}
+
+.image {
+  object-fit: cover;
+}

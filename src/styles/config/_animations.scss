@@ -1,0 +1,66 @@
+@import 'variables';
+
+@mixin dot-playing {
+  width: 8px;
+  height: 8px;
+  animation: dot-pulsation 1s ease infinite;
+  border-radius: 50%;
+  background-color: $color-red;
+}
+
+@mixin time-colon-pulsation {
+  animation: opacity-pulsation 1s linear infinite;
+  opacity: 1;
+}
+
+@keyframes dot-pulsation {
+  0% {
+    transform: scale(1);
+  }
+
+  28% {
+    transform: scale(1.5);
+  }
+
+  40% {
+    transform: scale(1.2);
+  }
+
+  52% {
+    transform: scale(1.5);
+  }
+
+  80% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes opacity-pulsation {
+  0% {
+    opacity: 0;
+  }
+
+  24% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  76% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

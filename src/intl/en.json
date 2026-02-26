@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "defaultTitle": "Station Radio",
+    "defaultDescription": "Station Radio is an occasional broadcast exploring sound and the theories, practices, politics, and poetics associated with it."
+  },
+  "base": {
+    "episode": "Episode",
+    "episodes": "Episodes",
+    "episodes_list": "Episodes",
+    "episodeCount": "{count, plural, one {# Episode} other {# Episodes}}",
+    "about_episode": "About",
+    "season": "Season",
+    "about_season": "About",
+    "special": "Specials",
+    "specials": "Specials",
+    "about_special": "About",
+    "listen": "Listen",
+    "hoursCount": "{count, plural, one {# hour} other {# hours}}",
+    "minutesCount": "{count, plural, one {# minute} other {# minutes}}",
+    "tracklist": "Tracklist",
+    "author": "Author",
+    "authors": "Authors",
+    "duration": "Time",
+    "slider": "Slider",
+    "goto_slide": "Go to slide",
+    "bio": "Bio",
+    "partners": "Partners",
+    "back": "Go back from page"
+  },
+  "components": {
+    "AgeRestriction": {
+      "text": "This material contains expletives and is intended for people aged 18+. Please confirm your age.",
+      "button": "I confirm"
+    },
+    "Cookie": {
+      "text": "We use cookies and similar technologies",
+      "button": "Ok"
+    },
+    "DetailsPartners": {
+      "title": "Partners"
+    },
+    "Footer": {
+      "sr_title": "Footer",
+      "garage": "Garage Museum of Contemporary Art",
+      "open_site": "Open website Garage Museum of Contemporary Art"
+    },
+    "Header": {
+      "title": "Navigation",
+      "goToMain": "To home page",
+      "radio": "Station Radio",
+      "locale": "Русская версия",
+      "menu": {
+        "open": "Open menu",
+        "close": "Close menu"
+      }
+    },
+    "Player": {
+      "header": "Player",
+      "controls": "Player controls",
+      "play": "Listen",
+      "pause": "Pause",
+      "prev": "Previous track",
+      "next": "Next track",
+      "menu": "List of episodes",
+      "menuClose": "Close episode list",
+      "close": "Close player"
+    },
+    "Skiplinks": {
+      "content": "Switch to main content",
+      "player": "Switch to player"
+    }
+  },
+  "pages": {
+    "main": {
+      "sr_title": "Home page",
+      "sr_about": "About",
+      "seasons": "Seasons",
+      "episodes": "Episodes"
+    },
+    "seasons": {
+      "title": "Seasons"
+    },
+    "specials": {
+      "title": "Specials"
+    },
+    "about": {
+      "nameProject": "Station Radio"
+    }
+  }
+}

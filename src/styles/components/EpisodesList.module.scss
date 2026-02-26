@@ -1,0 +1,128 @@
+@import 'styles/config/mixins';
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.captions {
+  @include text-small;
+
+  display: grid;
+  grid-template-columns: 42px 1fr 1fr 42px;
+  height: 40px;
+  border-top: 3px solid $color-black;
+
+  @include media-breakpoint-down(lgm) {
+    display: none;
+  }
+
+  &.vertical {
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+
+    @include media-breakpoint-between(lgm, mdm) {
+      display: none;
+    }
+  }
+}
+
+.caption {
+  position: relative;
+  padding: 3px 5px;
+
+  &:not(:first-child) {
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 15px;
+      content: '';
+      border-left: 1px solid $color-black;
+    }
+
+    &::after {
+      position: absolute;
+      top: 7px;
+      left: 6px;
+      width: 5px;
+      height: 5px;
+      content: '';
+      background-color: $color-black;
+    }
+  }
+
+  &:nth-child(2) {
+    padding-left: 47px;
+  }
+
+  &:nth-child(3) {
+    padding-left: 26px;
+
+    &::before {
+      left: -1px;
+    }
+  }
+}
+
+.episodes {
+  @include media-breakpoint-down(mdm) {
+    &:not(.vertical) {
+      display: flex;
+    }
+
+    &.vertical {
+      .episode {
+        margin: 0;
+        padding: 0;
+
+        &:not(:last-child) {
+          margin-bottom: 5px;
+        }
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.episode {
+  @include media-breakpoint-down(mdm) {
+    position: relative;
+    margin-left: 10px;
+
+    &:first-child {
+      margin-left: 20px;
+    }
+
+    &:last-child {
+      padding-right: 20px;
+    }
+
+    &::before {
+      position: absolute;
+      top: -30px;
+      bottom: -30px;
+      left: 41px;
+      width: 1px;
+      content: '';
+      border-left: 1px solid $color-gray-3;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    &:first-child {
+      margin-left: 10px;
+    }
+  }
+
+  @include media-breakpoint-up(mdm) {
+    & + & {
+      margin-top: 5px;
+    }
+  }
+}

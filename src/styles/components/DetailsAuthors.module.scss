@@ -1,0 +1,45 @@
+@import 'styles/config/mixins';
+
+.authors {
+  margin-top: 84px;
+
+  @include media-breakpoint-up(md) {
+    margin-top: 94px;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    margin-top: 96px;
+  }
+
+  &-image {
+    position: relative;
+    width: 231px;
+    height: 231px;
+    margin-top: 40px;
+
+    @include media-breakpoint-up(md) {
+      width: 238px;
+      height: 238px;
+    }
+  }
+}
+
+.caption {
+  @include text-p-1;
+
+  margin-bottom: 42px;
+
+  @include media-breakpoint-up(lg) {
+    padding-right: 25px;
+  }
+}
+
+.text {
+  @include text-p-3;
+
+  white-space: pre-wrap;
+}
+
+.image {
+  object-fit: cover;
+}

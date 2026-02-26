@@ -1,0 +1,13 @@
+export type EventCategory =
+  | 'audio-player'
+  | 'card-episode'
+  | 'card-season'
+  | 'card-special'
+  | 'main-page'
+  | 'seasons-page'
+  | 'specials-page'
+  | 'main-slider'
+  | 'season-slider'
+  | 'material-details'
+  | 'header-menu'
+  | 'mobile-menu'

@@ -1,0 +1,14 @@
+{
+  "*.{js,ts,tsx,css,scss}": [
+    "prettier --write"
+  ],
+  "*.{js,ts,tsx}": [
+    "eslint --fix"
+  ],
+  "*.{css,scss}": [
+    "stylelint --fix"
+  ],
+  "*.{ts,tsx}": [
+    "bash -c tsc"
+  ]
+}

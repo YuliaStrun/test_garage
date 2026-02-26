@@ -1,0 +1,63 @@
+@import 'styles/config/mixins';
+
+.special {
+  position: relative;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  @include media-breakpoint-up(md) {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  & + & {
+    margin-top: 20px;
+
+    @include media-breakpoint-up(mdm) {
+      margin-top: 30px;
+    }
+  }
+}
+
+.wrapper {
+  @include media-breakpoint-up(lg) {
+    max-width: 1440px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+.hoverable {
+  @include hover {
+    &:hover::before,
+    &:hover::after {
+      position: absolute;
+      inset: -3px 0;
+      content: '';
+      pointer-events: none;
+    }
+
+    &:hover::before {
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-image: url('~assets/img/button-border.svg') 1 round;
+    }
+
+    &:hover::after {
+      border-right: 12px solid $color-red;
+      border-left: 12px solid $color-red;
+
+      @include media-breakpoint-down(md) {
+        border-right-width: 8px;
+        border-left-width: 8px;
+      }
+    }
+  }
+}

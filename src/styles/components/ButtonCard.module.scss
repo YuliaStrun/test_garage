@@ -1,0 +1,186 @@
+@import 'styles/config/mixins';
+
+.colon {
+  opacity: 1;
+}
+
+.button {
+  @include text-small;
+
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  justify-content: center;
+  margin-bottom: auto;
+  padding-right: 5px;
+  padding-left: 5px;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+  pointer-events: auto;
+  border: 1px solid $color-black;
+
+  [class^='icon-'] {
+    font-size: 11px;
+  }
+
+  @include hover {
+    &:hover {
+      .colon {
+        @include time-colon-pulsation;
+      }
+    }
+  }
+}
+
+.bold {
+  @include text-menu;
+}
+
+.dot {
+  & [class^='icon-'] {
+    position: relative;
+
+    &::after {
+      @include dot-playing;
+
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      content: '';
+    }
+  }
+}
+
+.normal [class^='icon-'],
+.icon-only [class^='icon-'] {
+  color: $color-black;
+}
+
+.big [class^='icon-'] {
+  color: $color-white;
+}
+
+.normal {
+  height: 20px;
+
+  @include hover {
+    &:hover,
+    &:global(.focus-visible) {
+      [class^='icon-'] {
+        color: $color-red;
+      }
+    }
+  }
+
+  &.dot {
+    [class^='icon-'] {
+      color: $color-white;
+    }
+
+    @include hover {
+      &:hover {
+        [class^='icon-'] {
+          color: $color-black;
+        }
+
+        & [class^='icon-']::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.big {
+  height: 42px;
+
+  @include media-breakpoint-up(mdm) {
+    height: 35px;
+  }
+
+  @include hover {
+    &:hover,
+    &:global(.focus-visible) {
+      & [class^='icon-'] {
+        color: $color-red;
+      }
+    }
+  }
+
+  &.dot {
+    & [class^='icon-'] {
+      color: $color-black;
+    }
+
+    @include hover {
+      &:hover,
+      &:global(.focus-visible) {
+        & [class^='icon-'] {
+          color: $color-white;
+
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.icon-only {
+  @include hover {
+    &:hover,
+    &:global(.focus-visible) {
+      & [class^='icon-'] {
+        color: $color-red;
+      }
+    }
+  }
+
+  &.dot {
+    background-color: $color-black;
+
+    @include hover {
+      &:hover,
+      &:global(.focus-visible) {
+        background-color: $color-red;
+
+        & [class^='icon-'] {
+          color: $color-black;
+        }
+
+        & [class^='icon-']::after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.pause {
+    background-color: $color-red;
+
+    @include hover {
+      &:hover,
+      &:global(.focus-visible) {
+        & [class^='icon-'] {
+          color: $color-black;
+        }
+      }
+    }
+  }
+}
+
+.text {
+  @include media-breakpoint-down(md) {
+    padding-bottom: 2px;
+  }
+}
+
+.duration {
+  color: $color-gray-3;
+
+  @include media-breakpoint-down(md) {
+    padding-bottom: 2px;
+  }
+}

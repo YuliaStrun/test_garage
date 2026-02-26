@@ -1,0 +1,236 @@
+@import 'styles/config/mixins';
+
+$ornament-offset-top-desktop: 114px;
+$ornament-offset-top-tablet: 118px;
+$ornament-offset-top-mobile: 118px;
+$header-height-desktop: 92px;
+$header-height-tablet: 92px;
+$header-height-mobile: 57px;
+$title-height-desktop: 60px;
+$title-height-tablet: 60px;
+$title-height-mobile: 120px;
+$logo-height-desktop: 186px;
+$logo-height-tablet: 186px;
+$logo-height-mobile: 128px;
+$ruler-height: 8px;
+
+.main {
+  min-height: var(--visual-viewport-height);
+  padding-bottom: 140px;
+
+  @include media-breakpoint-up(md) {
+    padding-bottom: 180px;
+  }
+}
+
+.content {
+  position: relative;
+  padding: 0 10px;
+  background-color: $color-white;
+
+  @include media-breakpoint-up(md) {
+    @include grid;
+
+    padding: 0 20px;
+  }
+}
+
+.background {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: var(--visual-viewport-height);
+  min-height: 530px;
+
+  @include media-breakpoint-up(md) {
+    top: 60px;
+  }
+
+  &__wrap {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__canvas {
+    width: 100% !important;
+    height: 100% !important;
+
+    @include media-breakpoint-up(md) {
+      min-width: 1440px !important;
+    }
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 40vh;
+    min-height: 200px;
+    content: '';
+  }
+
+  &::before {
+    top: 0;
+    background: linear-gradient(to bottom, $color-white 0%, transparent 100%);
+  }
+
+  &::after {
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, $color-white 100%);
+  }
+}
+
+.title {
+  $height-mobile: $header-height-mobile + $ornament-offset-top-mobile + $title-height-mobile;
+  $height-tablet: $header-height-tablet + $ornament-offset-top-tablet + $title-height-tablet;
+  $height-desktop: $header-height-desktop + $ornament-offset-top-desktop + $title-height-desktop;
+
+  @include text-t-1;
+
+  grid-column: 1 / -1;
+  max-width: 350px;
+  margin-top: $header-height-mobile;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: calc(var(--visual-viewport-height) / 2 - $height-mobile - $ruler-height / 2);
+  padding-bottom: $ornament-offset-top-mobile;
+  text-align: center;
+  color: $color-white;
+  mix-blend-mode: exclusion;
+
+  @include media-breakpoint-up(md) {
+    width: auto;
+    margin-top: $header-height-tablet;
+    padding-top: calc(var(--visual-viewport-height) / 2 - $height-tablet - $ruler-height / 2);
+    padding-bottom: $ornament-offset-top-tablet;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-top: $header-height-desktop;
+    padding-top: calc(var(--visual-viewport-height) / 2 - $height-desktop - $ruler-height / 2);
+    padding-bottom: $ornament-offset-top-desktop;
+  }
+}
+
+.ornament {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
+  grid-column: 1 / -1;
+  gap: 6px;
+  margin-top: calc(($ruler-height - $logo-height-mobile) / 2);
+  margin-bottom: calc(($ruler-height - $logo-height-mobile) / 2);
+
+  @include media-breakpoint-up(md) {
+    margin-top: calc(($ruler-height - $logo-height-tablet) / 2);
+    margin-bottom: calc(($ruler-height - $logo-height-tablet) / 2);
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-top: calc(($ruler-height - $logo-height-desktop) / 2);
+    margin-bottom: calc(($ruler-height - $logo-height-desktop) / 2);
+  }
+}
+
+.logo {
+  position: relative;
+  width: 187px !important;
+  height: $logo-height-mobile !important;
+
+  @include media-breakpoint-up(md) {
+    width: 271px !important;
+    height: $logo-height-tablet !important;
+  }
+
+  @include media-breakpoint-up(lg) {
+    height: $logo-height-desktop !important;
+  }
+}
+
+.ruler {
+  position: relative;
+  height: $ruler-height;
+
+  &::before {
+    position: absolute;
+    inset: 0 0 0 50%;
+    content: '';
+    background: url('~assets/img/ruler.svg') left;
+    mix-blend-mode: exclusion;
+  }
+
+  &::after {
+    position: absolute;
+    inset: 0 50% 0 0;
+    content: '';
+    background: url('~assets/img/ruler.svg') right;
+    mix-blend-mode: exclusion;
+  }
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  top: -15px;
+  width: 0;
+  height: 38px;
+  margin: auto;
+  border: 1px solid $color-red;
+}
+
+.about {
+  @include text-p-2;
+
+  margin-bottom: 50px;
+  padding-top: 144px;
+  text-align: center;
+  color: $color-white;
+  mix-blend-mode: exclusion;
+
+  @include media-breakpoint-up(md) {
+    @include text-t-3;
+
+    grid-column: 2 / -2;
+    margin-bottom: 97px;
+    padding-top: 198px;
+    line-height: 133%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 164px;
+  }
+}
+
+.description {
+  @include text-p-3;
+
+  position: relative;
+  text-align: center;
+
+  @include media-breakpoint-up(md) {
+    grid-column: 4 / -4;
+    text-align: left;
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-column: 5 / -5;
+  }
+
+  a[href] {
+    border-bottom: 1px solid $color-black;
+
+    @include hover {
+      &:hover {
+        border-bottom: none;
+      }
+    }
+  }
+}

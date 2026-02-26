@@ -1,0 +1,43 @@
+@import 'styles/config/mixins';
+
+.image {
+  object-fit: cover;
+}
+
+.season {
+  @include text-menu;
+
+  margin-bottom: 6px;
+  text-decoration: underline;
+
+  @include hover {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.title {
+  @include text-t-2;
+
+  word-break: break-word;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
+  &-preview {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+
+  &-name {
+    @include text-menu;
+
+    padding-top: 1px;
+  }
+}

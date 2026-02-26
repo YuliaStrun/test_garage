@@ -1,0 +1,41 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": "next/core-web-vitals",
+  "plugins": ["@typescript-eslint", "prettier", "ascii"],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "lodash/*",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react", "lodash/*"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "sort-imports": ["error", { "ignoreDeclarationSort": true }],
+    "linebreak-style": ["error", "unix"],
+    "react/display-name": "warn",
+    "react/jsx-key": "error",
+    "no-duplicate-imports": "warn",
+    "import/no-cycle": "warn",
+    "ascii/valid-name": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "prettier/prettier": ["error", {}, { "usePrettierrc": true }]
+  }
+}

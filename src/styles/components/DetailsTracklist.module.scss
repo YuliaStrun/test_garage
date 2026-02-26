@@ -1,0 +1,87 @@
+@import 'styles/config/mixins';
+
+.tracklist {
+  margin-top: 98px;
+  margin-bottom: 98px;
+}
+
+.caption {
+  @include text-p-1;
+
+  margin-bottom: 42px;
+
+  @include media-breakpoint-up(lg) {
+    padding-right: 25px;
+  }
+}
+
+.tracks {
+  margin-top: -15px;
+
+  @include media-breakpoint-up(md) {
+    margin-top: -3px;
+  }
+}
+
+.track {
+  @include text-p-3;
+
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 16px;
+
+  @include media-breakpoint-up(md) {
+    padding-top: 3px;
+    padding-bottom: 4px;
+  }
+
+  &:not(:last-child) {
+    @include border-dotted('bottom', $color-black);
+  }
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  margin-bottom: auto;
+  padding: 1px 8px;
+  white-space: nowrap;
+  border: 3px solid $color-black;
+
+  @include media-breakpoint-up(md) {
+    margin-right: 20px;
+    padding: 1px 13px;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    padding: 1px 8px;
+  }
+}
+
+.title {
+  padding-top: 2px;
+  line-height: 23px;
+
+  @include media-breakpoint-up(md) {
+    padding-top: 7px;
+    line-height: 22px;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    padding-top: 5px;
+  }
+}
+
+.link {
+  display: block;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+
+  @include hover {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

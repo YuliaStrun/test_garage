@@ -1,0 +1,134 @@
+@import 'styles/config/mixins';
+
+.container {
+  @include media-breakpoint-up(mdm) {
+    display: grid;
+    grid-template-columns: 1fr 12px;
+    height: 100%;
+  }
+}
+
+.content {
+  position: sticky;
+  flex-grow: 1;
+  padding-bottom: 120px;
+
+  @include media-breakpoint-up(sm) {
+    padding-bottom: 180px;
+  }
+}
+
+.scrollbar {
+  position: relative;
+  z-index: 1;
+
+  @include media-breakpoint-down(mdm) {
+    display: none;
+  }
+}
+
+.poster {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  padding-top: 70vh;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  margin-top: 70vh;
+  padding: 30px 10px 0;
+
+  @include media-breakpoint-up(sm) {
+    padding: 20px 20px 0;
+  }
+}
+
+.wrap-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.panel {
+  position: sticky;
+  z-index: 3;
+  margin-top: calc(70vh - 62px);
+  margin-bottom: calc(-70vh + 20px);
+  transform: translate3d(0, 0, 0);
+
+  @include media-breakpoint-down(mdm) {
+    top: 92px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  @include media-breakpoint-down(md) {
+    top: 57px;
+    margin-top: calc(70vh - 52px);
+    margin-bottom: calc(-70vh + 10px);
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    position: fixed;
+    top: 91px;
+    right: calc(50% + 33px);
+    margin-top: 0;
+  }
+}
+
+.dummy {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  order: -1;
+  height: 157px;
+  margin-top: -159px;
+  margin-bottom: 2px;
+  transform: translate3d(0, 0, 0);
+  background: linear-gradient(
+    to bottom,
+    $color-white 0%,
+    $color-white calc(100% - 49px),
+    transparent calc(100% - 16px),
+    transparent 100%
+  );
+
+  @include media-breakpoint-up(md) {
+    height: 192px;
+    margin-top: -194px;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    order: 0;
+    height: 41px;
+    margin-top: 0;
+    margin-bottom: -41px;
+    background: $color-white;
+  }
+}
+
+.controls {
+  display: none;
+
+  @include media-breakpoint-up(mdm) {
+    position: sticky;
+    z-index: 1;
+    top: 41px;
+    display: block;
+    padding-top: 40px;
+    padding-bottom: 28px;
+    background: linear-gradient(to bottom, $color-white 0%, $color-white calc(100% - 50px), transparent 100%);
+  }
+}

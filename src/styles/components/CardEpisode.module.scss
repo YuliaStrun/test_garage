@@ -1,0 +1,188 @@
+@import 'styles/config/mixins';
+
+$grid-one-row: 'number left right play' 42px / 42px 1fr 1fr 42px;
+$grid-two-rows: 'left left left' 42px 'number right play' 42px / 42px 1fr 42px;
+
+.number {
+  grid-area: number;
+  padding: 5px;
+
+  @include media-breakpoint-down(lgm) {
+    background-color: $color-gray-3;
+  }
+}
+
+.right {
+  display: flex;
+  overflow: hidden;
+  grid-area: right;
+  justify-content: space-between;
+
+  @include media-breakpoint-down(lgm) {
+    align-items: center;
+    padding-left: 5px;
+  }
+}
+
+.author {
+  display: flex;
+  overflow: hidden;
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  &-preview {
+    position: relative;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  &-name {
+    @include ellipsis;
+
+    margin-top: 3px;
+    margin-left: 5px;
+  }
+}
+
+.container {
+  @include text-menu;
+
+  display: grid;
+  grid-template: $grid-one-row;
+  background-color: $color-white;
+
+  @include media-breakpoint-down(lgm) {
+    grid-template: $grid-two-rows;
+  }
+
+  @include hover {
+    &:hover {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        inset: 0;
+        content: '';
+        pointer-events: none;
+        border-width: 1px;
+        border-image: url('~assets/img/button-border.svg') 1 round;
+      }
+    }
+  }
+
+  &:not(.full) {
+    @include media-breakpoint-down(mdm) {
+      width: 294px;
+    }
+  }
+
+  &.full {
+    @include media-breakpoint-up(md) {
+      &.modal {
+        grid-template: $grid-one-row;
+
+        .right {
+          align-items: initial;
+          padding-left: 0;
+        }
+
+        .number {
+          background-color: $color-white;
+        }
+      }
+    }
+
+    @include media-breakpoint-down(mdm) {
+      grid-template: $grid-two-rows;
+
+      .right {
+        align-items: center;
+        padding-left: 5px;
+
+        @include media-breakpoint-down(sm) {
+          align-items: center;
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+
+  &.active {
+    position: relative;
+
+    &:not(:hover)::before {
+      position: absolute;
+      inset: 0;
+      content: '';
+      pointer-events: none;
+      border: 1px solid $color-black;
+    }
+  }
+}
+
+.left {
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: 42px 1fr;
+  grid-area: left;
+}
+
+.info {
+  display: flex;
+  overflow: hidden;
+  gap: 3px;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.title {
+  @include ellipsis;
+}
+
+.preview {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.duration {
+  @include text-small;
+
+  color: $color-gray-3;
+}
+
+.restriction {
+  @include text-small;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-top: 1px solid $color-black;
+  border-bottom: 1px solid $color-black;
+  border-left: 1px solid $color-black;
+}
+
+.play {
+  position: relative;
+  z-index: 1;
+  grid-area: play;
+  height: 42px !important;
+  border: 1px solid $color-black;
+  font-size: 12px;
+
+  @include hover {
+    &:hover,
+    &:focus-within {
+      color: $color-red;
+    }
+  }
+}

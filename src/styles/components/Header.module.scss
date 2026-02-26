@@ -1,0 +1,260 @@
+@use 'sass:color';
+@import 'styles/config/mixins';
+
+.header {
+  position: sticky;
+  z-index: $z-mobile-header;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin-right: 10px;
+  margin-bottom: -57px;
+  margin-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: default;
+
+  @include media-breakpoint-up(md) {
+    z-index: $z-header;
+    margin-right: 32px;
+    margin-bottom: -92px;
+    margin-left: 32px;
+  }
+
+  @include media-breakpoint-up(lgm) {
+    @include grid;
+  }
+
+  &.main {
+    margin-right: 18px;
+    margin-left: 18px;
+
+    @include media-breakpoint-up(md) {
+      margin-right: 32px;
+      margin-left: 32px;
+    }
+  }
+}
+
+.navigation {
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    width: 464px;
+    margin: 0 auto;
+  }
+
+  @include media-breakpoint-up(lgm) {
+    grid-column: 5 / 9;
+    width: 100%;
+  }
+}
+
+.top {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 50px 1fr auto 1fr 50px;
+  width: 100%;
+  height: 37px;
+  background-color: $color-black;
+
+  @include media-breakpoint-up(md) {
+    z-index: 0;
+    grid-template-columns: 1fr auto 1fr;
+    padding: 0 2px;
+  }
+}
+
+.bottom {
+  display: none;
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 35px;
+    background-color: $color-gray-1;
+  }
+}
+
+.active {
+  pointer-events: none;
+}
+
+.item,
+.active,
+.radio {
+  @include text-menu;
+  @include ellipsis;
+}
+
+@mixin button-border {
+  &::after {
+    position: absolute;
+    inset: 0;
+    margin: 2px;
+    content: '';
+  }
+}
+
+.item,
+.active {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &:disabled {
+    color: $color-gray-3;
+  }
+
+  @include media-breakpoint-down(md) {
+    @include text-t-3;
+
+    padding: 10px;
+    color: $color-white;
+  }
+
+  @include media-breakpoint-up(md) {
+    height: 100%;
+
+    @include hover {
+      transition: text-shadow 0.3s ease;
+      text-shadow: none;
+
+      &:focus-within,
+      &:hover:not(:disabled) {
+        @include button-border;
+
+        text-shadow: 0 0 4px rgb(0 0 0 / 25%);
+
+        &::after {
+          border-width: 1px;
+          border-image: url('~assets/img/button-border.svg') 1 round;
+        }
+      }
+    }
+  }
+}
+
+.active:not(:disabled) {
+  @include media-breakpoint-up(md) {
+    @include button-border;
+
+    &::after {
+      border: 1px solid $color-black;
+    }
+  }
+}
+
+.radio {
+  height: 23px;
+  margin-top: auto;
+  margin-bottom: auto;
+  transition: color 0.3s ease-out;
+  color: $color-white;
+  line-height: 23px;
+
+  @include hover {
+    &:hover {
+      color: $color-gray-1;
+    }
+  }
+}
+
+.lang {
+  @include text-menu;
+
+  padding: 7px 20px;
+  transition: color 0.3s ease-out;
+  color: $color-white;
+  background-color: $color-black;
+
+  @include hover {
+    &:hover,
+    &:focus-within {
+      color: $color-gray-1;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+
+  @include media-breakpoint-up(md) {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    padding: 10px 20px;
+  }
+}
+
+.logo {
+  @include media-breakpoint-down(md) {
+    margin-right: -17px;
+  }
+
+  @include media-breakpoint-up(md) {
+    position: fixed;
+    top: 8px;
+    left: 20px;
+    margin: 0;
+  }
+}
+
+.logo-link {
+  @include text-small;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  position: relative;
+  width: 44px;
+  height: 27px;
+
+  @include media-breakpoint-up(md) {
+    width: 77px;
+    height: 50px;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    width: 97px;
+    height: 62px;
+  }
+}
+
+.burger {
+  @include text-small;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-white;
+  font-size: 37px;
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}
+
+.dash {
+  height: 9px;
+  margin: auto 12px;
+  background-image: url('data:image/svg+xml,<svg width="15" height="1" viewBox="0 0 15px 1px" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0.5H1" stroke="rgba(' + color.red(
+      $color-gray-4
+    ) + ', ' + color.green($color-gray-4) + ', ' + color.blue($color-gray-4) + ')"/></svg>');
+  background-position: center;
+
+  @include media-breakpoint-up(md) {
+    margin: auto 8px;
+    background-image: url('data:image/svg+xml,<svg width="36" height="1" viewBox="0 0 36px 1px" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0.5H1" stroke="white"/></svg>');
+  }
+}

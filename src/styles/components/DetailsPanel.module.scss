@@ -1,0 +1,76 @@
+@import 'styles/config/mixins';
+
+.panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid $color-black;
+  background-color: $color-white;
+  font-size: 52px;
+
+  @include hover {
+    &:hover,
+    &:focus-within {
+      background-color: $color-black;
+
+      [class^='icon-'] {
+        color: $color-white;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(mdm) {
+    width: 35px;
+    height: 35px;
+    font-size: 44px;
+  }
+}
+
+.actions {
+  display: flex;
+
+  @include media-breakpoint-up(mdm) {
+    display: none;
+  }
+}
+
+.play {
+  width: 154px;
+  color: $color-white;
+  background-color: $color-black;
+}
+
+.restriction {
+  @include text-small;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-right: 3px;
+  color: $color-white;
+  background-color: $color-black;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-left: 10px;
+  background-color: $color-red;
+  font-size: 42px;
+
+  @include media-breakpoint-up(mdm) {
+    display: none;
+  }
+}

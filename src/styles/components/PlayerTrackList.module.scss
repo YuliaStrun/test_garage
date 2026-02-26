@@ -1,0 +1,205 @@
+@import 'styles/config/mixins';
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  @include ellipsis;
+
+  margin-bottom: 20px;
+  padding: 21px 10px 18px;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 0;
+    padding: 21px 20px 9px;
+  }
+
+  span {
+    @include underlined;
+  }
+}
+
+.playlist {
+  @include hide-scrollbar;
+
+  overflow-y: auto;
+  max-height: min(40vh, 400px);
+  padding-bottom: 18px;
+}
+
+.caption {
+  display: grid;
+  grid-template-columns: 42px 57px 1fr 1fr 58px;
+  gap: 5px;
+  padding: 11px 20px 8px;
+  color: $color-gray-4;
+
+  span:last-child {
+    text-align: right;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: 281px 57px 1fr 1fr 100px;
+  }
+}
+
+.item {
+  position: relative;
+  padding-top: 4px;
+  padding-bottom: 3px;
+
+  &::before {
+    @include border-dotted('top', $color-gray-4);
+
+    position: absolute;
+    top: 0;
+    right: 10px;
+    left: 10px;
+    height: 1px;
+    content: '';
+
+    @include media-breakpoint-up(md) {
+      right: 20px;
+      left: 20px;
+    }
+  }
+}
+
+.track {
+  display: grid;
+  grid-template-areas: 'preview trackname duration' 'preview artist duration';
+  grid-template-columns: auto 1fr auto;
+  column-gap: 5px;
+  width: 100%;
+  min-width: 0;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: left;
+
+  @include media-breakpoint-up(md) {
+    grid-template-areas: 'tracknumber preview trackname artist duration';
+    grid-template-columns: 42px 57px 1fr 1fr 58px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: 281px 57px 1fr 1fr 110px;
+  }
+
+  @include hover {
+    &:hover {
+      background-color: $color-gray-6;
+    }
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.tracknumber {
+  grid-area: tracknumber;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.preview {
+  grid-area: preview;
+}
+
+.trackname {
+  @include ellipsis;
+
+  grid-area: trackname;
+  text-transform: uppercase;
+
+  @include media-breakpoint-down(md) {
+    padding-top: 6px;
+  }
+
+  @include media-breakpoint-up(md) {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+.artist {
+  @include ellipsis;
+
+  grid-area: artist;
+  text-transform: uppercase;
+
+  @include media-breakpoint-down(md) {
+    color: $color-gray-4;
+
+    &::before {
+      content: '// ';
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+.duration {
+  @include text-small;
+
+  grid-area: duration;
+  padding: 6px 0;
+  text-align: right;
+
+  @include media-breakpoint-up(md) {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+.playable {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  font-size: 42px;
+
+  @include media-breakpoint-up(md) {
+    margin-left: -15px;
+  }
+
+  [class^='icon-'] {
+    display: none;
+  }
+
+  &::after {
+    @include dot-playing;
+
+    position: absolute;
+    display: block;
+    inset: 0;
+    margin: auto;
+    content: '';
+  }
+
+  &.paused {
+    [class^='icon-'] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-size: 11px;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+}

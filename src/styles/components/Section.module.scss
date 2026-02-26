@@ -1,0 +1,24 @@
+@import 'styles/config/mixins';
+
+.section {
+  cursor: default;
+
+  &.grid {
+    @include grid;
+  }
+
+  &:not(.full) {
+    margin-right: 10px;
+    margin-left: 10px;
+
+    @include media-breakpoint-up(md) {
+      margin-right: 20px;
+      margin-left: 20px;
+    }
+  }
+
+  &.paddings {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+}

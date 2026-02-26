@@ -1,0 +1,28 @@
+{
+  "apps": [
+    {
+      "name"       : "garage-radio-frontend",
+      "script"     : "./node_modules/.bin/next",
+      "args"       : "start",
+      "instances"  : 2,
+      "exec_mode"  : "cluster",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": "3001"
+      },
+      "env_production": {
+        "APP_ENV": "production"
+      }
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user":         "www",
+      "host":         "station.garagemca.radio",
+      "ref" :         "origin/main",
+      "repo":         "git@github.com:Garage-mca/garage-radio-frontend.git",
+      "path":         "/home/www/garage-radio-frontend",
+      "post-deploy":  "UV_THREADPOOL_SIZE=100 yarn && NODE_ENV=production yarn build && APP_REVISION=$(git rev-parse --short HEAD) pm2 startOrGracefulReload ecosystem.json --update-env --env production && pm2 save"
+    }
+  }
+}

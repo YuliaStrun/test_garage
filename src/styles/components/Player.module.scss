@@ -1,0 +1,128 @@
+@import 'styles/config/mixins';
+
+@keyframes player-show {
+  0% {
+    bottom: var(--hide-offset);
+  }
+
+  100% {
+    bottom: 0;
+  }
+}
+
+@keyframes player-hide {
+  0% {
+    bottom: 0;
+  }
+
+  100% {
+    bottom: var(--hide-offset);
+  }
+}
+
+.panel {
+  --hide-offset: -109px;
+
+  position: fixed;
+  z-index: $z-index-player;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: default;
+  user-select: none;
+  animation: player-show var(--duration) ease;
+
+  @include media-breakpoint-up(md) {
+    --hide-offset: -60px;
+  }
+
+  &.hide {
+    animation: player-hide var(--duration) ease;
+  }
+}
+
+.bar {
+  display: grid;
+  grid-template-areas: 'progress progress progress' 'controls info close';
+  grid-template-columns: auto 1fr auto;
+  color: $color-white;
+  background-color: $color-black;
+
+  @include media-breakpoint-down(md) {
+    grid-template-areas: 'progress progress' 'info info' 'controls close';
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.controls-wrapper {
+  @include media-breakpoint-down(md) {
+    @include border-dotted('right');
+  }
+
+  @include media-breakpoint-up(md) {
+    padding-right: 10px;
+    padding-left: 20px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-right: 20px;
+  }
+}
+
+.controls {
+  display: flex;
+  grid-area: controls;
+  gap: 5px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  grid-area: info;
+  transition:
+    margin-bottom 0.3s,
+    opacity 0.5s linear 0.3s;
+
+  .hidden & {
+    @include media-breakpoint-down(md) {
+      margin-bottom: -100px;
+      transition: none;
+      pointer-events: none;
+      opacity: 0;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    @include border-dotted('bottom');
+  }
+}
+
+.close {
+  grid-area: close;
+}
+
+.playlist {
+  @include text-menu;
+
+  position: relative;
+  z-index: -1;
+  animation: player-show var(--duration) ease;
+  color: $color-white;
+  border-bottom: 2px solid $color-gray-5;
+  background-color: $color-black;
+
+  &.hide {
+    animation: player-hide var(--duration) ease;
+  }
+}
+
+.image-wrapper {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+
+.image {
+  object-fit: cover;
+}

@@ -1,0 +1,61 @@
+@import 'styles/config/mixins';
+
+.main {
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-down(mdm) {
+    overflow-x: clip;
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+
+  @include media-breakpoint-down(mdm) {
+    grid-template-columns: 100vw 100vw;
+  }
+}
+
+.left {
+  position: relative;
+  inset: 0;
+  transition:
+    right ease var(--animate-duration),
+    left ease var(--animate-duration);
+
+  @include media-breakpoint-up(mdm) {
+    position: relative;
+    padding-right: 1px;
+
+    &::after {
+      @include border-dotted('right', $color-black);
+
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: calc(50% - 1px);
+      display: block;
+      width: 1px;
+      content: '';
+    }
+  }
+
+  &.closed {
+    right: 100%;
+    left: -100%;
+  }
+}
+
+.right {
+  @include media-breakpoint-down(mdm) {
+    display: none;
+  }
+
+  @include media-breakpoint-up(mdm) {
+    margin-left: -1px;
+    border-left: 1px solid $color-red;
+  }
+}

@@ -1,0 +1,29 @@
+@import 'styles/config/mixins';
+
+.skiplinks {
+  position: fixed;
+  z-index: $z-skiplinks;
+  top: 6px;
+  left: 16px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  color: $color-white;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+
+  &:not(:focus-within) {
+    @include sr-only;
+  }
+}
+
+.skiplink {
+  @include text-menu;
+
+  display: block;
+  margin: 4px;
+  padding: 7px 20px;
+  background-color: $color-black;
+}

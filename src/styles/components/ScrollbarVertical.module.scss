@@ -1,0 +1,17 @@
+@import 'styles/config/mixins';
+
+.scrollbar {
+  @include hide-scrollbar;
+
+  background-color: $color-red;
+}
+
+.thumb {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 50%;
+  background-color: $color-black;
+}

@@ -1,0 +1,111 @@
+@import 'styles/config/mixins';
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+
+  @include media-breakpoint-up(md) {
+    @include border-dotted('top', $color-black);
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  &.with-offset {
+    @include media-breakpoint-up(mdm) {
+      padding-right: 40px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding-right: 44px;
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+
+  @include media-breakpoint-down(lg) {
+    display: none;
+  }
+}
+
+.actions {
+  display: flex;
+  margin-left: auto;
+}
+
+.button {
+  @include text-menu;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 35px;
+  margin-right: -1px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border: 1px solid $color-black;
+  background-color: $color-white;
+
+  @include media-breakpoint-up(lg) {
+    margin-right: 5px;
+  }
+
+  &::before {
+    display: none;
+    width: 8px;
+    height: 8px;
+    margin-right: 5px;
+    margin-left: -13px;
+    content: '';
+    border: 1px solid $color-black;
+    border-radius: 50%;
+  }
+
+  @include hover {
+    &:hover,
+    &:focus-within {
+      &::before {
+        display: block;
+      }
+    }
+  }
+
+  &.active {
+    cursor: default;
+    pointer-events: none;
+
+    &::before {
+      display: block;
+      border: none;
+      background-color: $color-red;
+    }
+  }
+}
+
+.play {
+  width: 154px;
+  color: $color-white;
+  background-color: $color-black;
+
+  [class^='icon-'] {
+    color: $color-white;
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-left: 10px;
+  background-color: $color-red;
+  font-size: 42px;
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}

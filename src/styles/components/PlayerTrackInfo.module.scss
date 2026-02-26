@@ -1,0 +1,38 @@
+@import 'styles/config/mixins';
+
+.panel {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 7px 10px;
+
+  @include media-breakpoint-up(md) {
+    padding: 0;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding: 0 30px;
+  }
+}
+
+.info {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  min-width: 0;
+  padding-left: 5px;
+}
+
+.title {
+  @include text-menu;
+  @include underlined;
+  @include ellipsis;
+
+  text-underline-offset: 2px;
+}
+
+.author {
+  @include text-menu;
+
+  color: $color-gray-4;
+}

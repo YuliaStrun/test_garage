@@ -1,0 +1,83 @@
+@import 'styles/config/mixins';
+
+.overlay {
+  position: fixed;
+  z-index: $z-restriction;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: var(--visual-viewport-height);
+  padding: 10px;
+  backdrop-filter: blur(10px);
+
+  @include media-breakpoint-up(md) {
+    padding: 20px;
+  }
+}
+
+.popup {
+  @include text-menu;
+
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  padding: 14px;
+  cursor: default;
+  border: 1px solid $color-black;
+  background-color: $color-white;
+
+  @include media-breakpoint-up(md) {
+    align-items: flex-start;
+    flex-direction: row-reverse;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 932px;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  @include media-breakpoint-up(md) {
+    margin-right: 10px;
+    margin-left: 45px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-right: 105px;
+    margin-left: 140px;
+  }
+}
+
+.text {
+  margin-top: 29px;
+  margin-bottom: 70px;
+  padding: 0 2px;
+  text-align: center;
+
+  @include media-breakpoint-up(md) {
+    margin-top: 15px;
+    margin-bottom: 100px;
+  }
+}
+
+.confirm {
+  margin-bottom: 35px;
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border: 1px solid $color-black;
+  font-size: 42px;
+}

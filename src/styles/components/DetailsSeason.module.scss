@@ -1,0 +1,60 @@
+@import 'styles/config/mixins';
+
+$partners-row-height: 109px;
+$partners-in-row-count: 2;
+
+.container {
+  @include media-breakpoint-up(mdm) {
+    display: grid;
+    grid-template-columns: 1fr 12px;
+    height: 100%;
+  }
+}
+
+.content {
+  flex-grow: 1;
+  padding-bottom: 120px;
+
+  @include media-breakpoint-up(mdm) {
+    padding-bottom: 180px;
+  }
+}
+
+.scrollbar {
+  position: relative;
+  z-index: 1;
+
+  @include media-breakpoint-down(mdm) {
+    display: none;
+  }
+}
+
+.poster {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  padding-top: 85vh;
+
+  @include media-breakpoint-down(mdm) {
+    display: none;
+  }
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 180px;
+    content: '';
+    background: linear-gradient(to top, $color-black 0%, transparent 90%);
+  }
+}
+
+.description {
+  padding: 28px 10px 0;
+
+  @include media-breakpoint-up(sm) {
+    padding: 38px 20px 0;
+  }
+}

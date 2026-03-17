@@ -2,7 +2,7 @@ import { CSSProperties, useMemo, useRef, useState } from 'react'
 
 import { useQuery } from '@apollo/client'
 import classnames from 'classnames'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 
@@ -14,6 +14,7 @@ import Meta from 'components/Meta'
 import { ANCHOR_CONTENT } from 'components/Skiplinks'
 import { EpisodeQuery, EpisodeQueryVariables } from 'schemas/__generated__/episode.generated'
 import { QUERY_EPISODE } from 'schemas/episode'
+import { QUERY_SEASONS } from 'schemas/seasons'
 import styles from 'styles/pages/Episode.module.scss'
 import addMenuQuery from 'utils/addMenuQuery'
 import { addApolloState, initializeApollo } from 'utils/apolloClient'
@@ -29,7 +30,34 @@ type DefaultProps = {
   slug: string
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const apolloClient = initializeApollo()
+  const { data } = await apolloClient.query({
+    query: QUERY_SEASONS,
+    variables: { locale: 'ru' }
+  })
+
+  const seasonNodes = data?.seasons?.data ?? []
+  const paths =
+    seasonNodes.flatMap((season: any) => {
+      const seasonSlug = season?.attributes?.slug
+      const episodeNodes = season?.attributes?.episodes?.data ?? []
+      return episodeNodes
+        .map((ep: any) => ep?.attributes?.slug)
+        .filter(Boolean)
+        .map((episodeSlug: string) => ({
+          params: { seasonSlug, episodeSlug }
+        }))
+    }) ?? []
+
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export const getStaticProps: GetStaticProps<DefaultProps> = async ({ params, locale }) => {
+  const resolvedLocale = locale ?? 'ru'
   const seasonSlug = String(params?.seasonSlug)
   const slug = String(params?.episodeSlug)
 
@@ -37,9 +65,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
   const [{ data }] = await Promise.all([
     apolloClient.query<EpisodeQuery, EpisodeQueryVariables>({
       query: QUERY_EPISODE,
-      variables: { slug, locale }
+      variables: { slug, locale: resolvedLocale }
     }),
-    addMenuQuery(apolloClient, String(locale))
+    addMenuQuery(apolloClient, String(resolvedLocale))
   ])
 
   if (
@@ -53,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
 
   return addApolloState(apolloClient, {
     props: {
-      ...intlServerSideAction(locale),
+      ...intlServerSideAction(resolvedLocale),
       slug
     }
   })

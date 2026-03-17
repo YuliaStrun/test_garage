@@ -11,6 +11,9 @@ module.exports = {
   basePath: basePath || undefined,
   assetPrefix: assetsHost || (basePath ? basePath + '/' : undefined),
   trailingSlash: true,
+  eslint: {
+    ignoreDuringBuilds: isGhPages
+  },
   i18n: isGhPages
     ? undefined
     : {

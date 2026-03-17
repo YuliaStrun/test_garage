@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { useQuery } from '@apollo/client'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 
@@ -17,20 +17,21 @@ import { addApolloState, initializeApollo } from 'utils/apolloClient'
 import { intlServerSideAction } from 'utils/intl'
 import { mapSpecialsData } from 'utils/mappers/mapSpecialsData'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const resolvedLocale = locale ?? 'ru'
   const apolloClient = initializeApollo()
 
   await Promise.all([
     apolloClient.query({
       query: QUERY_SPECIALS,
-      variables: { locale }
+      variables: { locale: resolvedLocale }
     }),
-    addMenuQuery(apolloClient, String(locale))
+    addMenuQuery(apolloClient, String(resolvedLocale))
   ])
 
   return addApolloState(apolloClient, {
     props: {
-      ...intlServerSideAction(locale)
+      ...intlServerSideAction(resolvedLocale)
     }
   })
 }

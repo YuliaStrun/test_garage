@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 
 import { useQuery } from '@apollo/client'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
@@ -24,20 +24,21 @@ import { mapSeasonsEpisodesData } from 'utils/mappers/mapSeasonsEpisodesData'
 const BLUR_VALUE_EM = 0.5
 const BLUR_RANGE_PX = 100
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const resolvedLocale = locale ?? 'ru'
   const apolloClient = initializeApollo()
 
   await Promise.all([
     apolloClient.query<SeasonsQuery, SeasonsQueryVariables>({
       query: QUERY_SEASONS,
-      variables: { locale }
+      variables: { locale: resolvedLocale }
     }),
-    addMenuQuery(apolloClient, String(locale))
+    addMenuQuery(apolloClient, String(resolvedLocale))
   ])
 
   return addApolloState(apolloClient, {
     props: {
-      ...intlServerSideAction(locale)
+      ...intlServerSideAction(resolvedLocale)
     }
   })
 }

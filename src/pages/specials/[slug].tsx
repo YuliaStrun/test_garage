@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { useQuery } from '@apollo/client'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
@@ -27,20 +27,36 @@ type DefaultProps = {
   slug: string
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const apolloClient = initializeApollo()
+  const { data } = await apolloClient.query({
+    query: QUERY_SPECIALS,
+    variables: { locale: 'ru' }
+  })
+
+  const slugs: string[] = data?.specialReleases?.data?.map((s: any) => s?.attributes?.slug).filter(Boolean) ?? []
+
+  return {
+    paths: slugs.map((slug) => ({ params: { slug } })),
+    fallback: false
+  }
+}
+
+export const getStaticProps: GetStaticProps<DefaultProps> = async ({ params, locale }) => {
+  const resolvedLocale = locale ?? 'ru'
   const slug = String(params?.slug)
 
   const apolloClient = initializeApollo()
   const [{ data }] = await Promise.all([
     apolloClient.query<SpecialReleaseQuery, SpecialReleaseQueryVariables>({
       query: QUERY_SPECIAL,
-      variables: { slug, locale }
+      variables: { slug, locale: resolvedLocale }
     }),
     apolloClient.query<SpecialReleasesQuery, SpecialReleasesQueryVariables>({
       query: QUERY_SPECIALS,
-      variables: { locale }
+      variables: { locale: resolvedLocale }
     }),
-    addMenuQuery(apolloClient, String(locale))
+    addMenuQuery(apolloClient, String(resolvedLocale))
   ])
 
   if (!data.specialReleaseBySlugEntity?.data) {
@@ -51,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
 
   return addApolloState(apolloClient, {
     props: {
-      ...intlServerSideAction(locale),
+      ...intlServerSideAction(resolvedLocale),
       slug
     }
   })

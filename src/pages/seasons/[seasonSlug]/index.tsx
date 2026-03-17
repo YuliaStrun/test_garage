@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { useQuery } from '@apollo/client'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 
@@ -12,6 +12,7 @@ import Meta from 'components/Meta'
 import { ANCHOR_CONTENT } from 'components/Skiplinks'
 import { SeasonQuery, SeasonQueryVariables } from 'schemas/__generated__/season.generated'
 import { QUERY_SEASON } from 'schemas/season'
+import { QUERY_SEASONS } from 'schemas/seasons'
 import styles from 'styles/pages/Season.module.scss'
 import addMenuQuery from 'utils/addMenuQuery'
 import { addApolloState, initializeApollo } from 'utils/apolloClient'
@@ -24,16 +25,32 @@ type DefaultProps = {
   slug: string
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const apolloClient = initializeApollo()
+  const { data } = await apolloClient.query({
+    query: QUERY_SEASONS,
+    variables: { locale: 'ru' }
+  })
+
+  const slugs: string[] = data?.seasons?.data?.map((s: any) => s?.attributes?.slug).filter(Boolean) ?? []
+
+  return {
+    paths: slugs.map((seasonSlug) => ({ params: { seasonSlug } })),
+    fallback: false
+  }
+}
+
+export const getStaticProps: GetStaticProps<DefaultProps> = async ({ params, locale }) => {
+  const resolvedLocale = locale ?? 'ru'
   const slug = String(params?.seasonSlug)
 
   const apolloClient = initializeApollo()
   const [{ data }] = await Promise.all([
     apolloClient.query<SeasonQuery, SeasonQueryVariables>({
       query: QUERY_SEASON,
-      variables: { slug, locale }
+      variables: { slug, locale: resolvedLocale }
     }),
-    addMenuQuery(apolloClient, String(locale))
+    addMenuQuery(apolloClient, String(resolvedLocale))
   ])
 
   if (!data?.seasonBySlugEntity?.data) {
@@ -44,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
 
   return addApolloState(apolloClient, {
     props: {
-      ...intlServerSideAction(locale),
+      ...intlServerSideAction(resolvedLocale),
       slug
     }
   })

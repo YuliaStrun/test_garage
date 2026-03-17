@@ -19,19 +19,20 @@ import setHTML from 'utils/setHTML'
 import { useWindowHeight } from 'utils/useWindowHeight'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const resolvedLocale = locale ?? 'ru'
   const apolloClient = initializeApollo()
 
   await Promise.all([
     apolloClient.query<AboutPageQuery, AboutPageQueryVariables>({
       query: QUERY_ABOUT_PAGE,
-      variables: { locale }
+      variables: { locale: resolvedLocale }
     }),
-    addMenuQuery(apolloClient, String(locale))
+    addMenuQuery(apolloClient, String(resolvedLocale))
   ])
 
   return addApolloState(apolloClient, {
     props: {
-      ...intlServerSideAction(locale)
+      ...intlServerSideAction(resolvedLocale)
     }
   })
 }

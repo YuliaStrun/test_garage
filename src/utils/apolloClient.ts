@@ -1,33 +1,55 @@
 import { useMemo } from 'react'
 
-import { ApolloClient, InMemoryCache, NormalizedCacheObject, createHttpLink, from } from '@apollo/client'
+import {
+  ApolloClient,
+  ApolloLink,
+  InMemoryCache,
+  NormalizedCacheObject,
+  Observable,
+  createHttpLink,
+  from
+} from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import merge from 'deepmerge'
 import type { AppProps } from 'next/app'
 
 import isEqual from 'lodash/isEqual'
 
+import { getMockResponse } from './mockGraphqlData'
 import config from '../../config'
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
+
+const useMock = !config.apiUrl || config.apiUrl.startsWith('mock')
+
+const mockLink = new ApolloLink((operation, forward) => {
+  const data = getMockResponse(operation.operationName)
+  if (data != null) {
+    return Observable.from([{ data }])
+  }
+  return forward(operation)
+})
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
 function createApolloClient() {
   const httpLink = createHttpLink({
-    uri: `${config.apiUrl}/graphql`,
+    uri:
+      config.apiUrl && !config.apiUrl.startsWith('mock')
+        ? `${config.apiUrl}/graphql`
+        : 'https://placeholder.invalid/graphql',
     credentials: 'same-origin'
   })
 
-  const authLink = setContext((_, { headers }) => {
-    return {
-      headers
-    }
-  })
+  const authLink = setContext((_, { headers }) => ({
+    headers
+  }))
+
+  const link = useMock ? mockLink : from([authLink, httpLink])
 
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: from([authLink, httpLink]),
+    link,
     cache: new InMemoryCache({
       typePolicies: {
         Season: {

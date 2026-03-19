@@ -11,48 +11,35 @@ type LinkTags = React.LinkHTMLAttributes<HTMLLinkElement>[]
 type MetaTags = React.MetaHTMLAttributes<HTMLMetaElement>[]
 type ScriptTags = React.ScriptHTMLAttributes<HTMLScriptElement>[]
 
-let linkTags: LinkTags = [
-  {
-    rel: 'icon',
-    type: 'apple-touch-icon',
-    sizes: '180x180',
-    href: '/favicon/apple-touch-icon.png'
-  },
-  {
-    rel: 'icon',
-    type: 'image/png',
-    sizes: '32x32',
-    href: '/favicon/favicon-32x32.png'
-  },
-  {
-    rel: 'icon',
-    type: 'image/png',
-    sizes: '16x16',
-    href: '/favicon/favicon-16x16.png'
-  },
-  {
-    rel: 'manifest',
-    href: '/favicon/site.webmanifest',
-    type: 'application/manifest+json',
-    crossOrigin: 'use-credentials'
-  },
-  {
-    rel: 'mask-icon',
-    href: '/favicon/safari-pinned-tab.svg',
-    color: '#000000'
-  }
-]
-
 const metaTags: MetaTags = [
+  { name: 'mobile-web-app-capable', content: 'yes' },
   { name: 'apple-mobile-web-app-capable', content: 'yes' },
   { name: 'msapplication-TileColor', content: '#000000' },
   { name: 'theme-color', content: '#000000' }
 ]
 
 export const GlobalMeta = React.memo(function Meta() {
-  const { locale } = useRouter()
+  const { locale, basePath } = useRouter()
   const t = useTranslations('meta')
   const defaultImage = (locale === 'ru' ? shareRu : shareEn).src
+  const withBasePath = (path: string) => `${basePath || ''}${path}`
+  const globalLinkTags: LinkTags = [
+    {
+      rel: 'icon',
+      type: 'image/svg+xml',
+      href: withBasePath('/favicon/safari-pinned-tab.svg')
+    },
+    {
+      rel: 'manifest',
+      href: withBasePath('/favicon/site.webmanifest'),
+      type: 'application/manifest+json'
+    },
+    {
+      rel: 'mask-icon',
+      href: withBasePath('/favicon/safari-pinned-tab.svg'),
+      color: '#000000'
+    }
+  ]
   return (
     <Head>
       <title>{t('defaultTitle')}</title>
@@ -74,7 +61,7 @@ export const GlobalMeta = React.memo(function Meta() {
           <meta {...meta} />
         </React.Fragment>
       ))}
-      {linkTags.map((link, index) => (
+      {globalLinkTags.map((link, index) => (
         <React.Fragment key={String(index)}>
           <link {...link} />
         </React.Fragment>

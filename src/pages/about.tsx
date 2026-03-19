@@ -39,8 +39,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const About: NextPage = () => {
   const t = useTranslations('pages.about')
-  const { locale } = useRouter()
+  const { locale, basePath } = useRouter()
   const { data } = useQuery<AboutPageQuery, AboutPageQueryVariables>(QUERY_ABOUT_PAGE, { variables: { locale } })
+  const withBasePath = (path: string) => `${basePath || ''}${path}`
 
   const { height } = useWindowHeight()
   const style: React.CSSProperties = {
@@ -56,7 +57,7 @@ const About: NextPage = () => {
     CABLES.patch = new CABLES.Patch({
       // @ts-ignore
       patch: CABLES.exportedPatch,
-      prefixAssetPath: '/logo/',
+      prefixAssetPath: withBasePath('/logo/'),
       assetPath: 'assets/',
       jsPath: 'js/',
       glCanvasId: 'glcanvas-logo',
@@ -100,7 +101,7 @@ const About: NextPage = () => {
     CABLES1.patch = new CABLES1.Patch({
       // @ts-ignore
       patch: CABLES1.exportedPatch,
-      prefixAssetPath: '/background/',
+      prefixAssetPath: withBasePath('/background/'),
       assetPath: 'assets/',
       jsPath: 'js/',
       glCanvasId: 'glcanvas-background',
@@ -196,8 +197,8 @@ const About: NextPage = () => {
         <div className={styles.about} {...setHTML({ html: data?.aboutPage?.data?.attributes?.head || '' })} />
         <div className={styles.description} {...setHTML({ html: data?.aboutPage?.data?.attributes?.text || '' })} />
       </div>
-      <Script src="/logo/js/patch.js" onReady={handleLogoPatchReady} />
-      <Script src="/background/js/patch.js" onReady={handleBackgroundPatchReady} />
+      <Script src={withBasePath('/logo/js/patch.js')} onReady={handleLogoPatchReady} />
+      <Script src={withBasePath('/background/js/patch.js')} onReady={handleBackgroundPatchReady} />
     </Layout>
   )
 }

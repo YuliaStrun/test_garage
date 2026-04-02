@@ -63,10 +63,12 @@ const About: NextPage = () => {
   const logoCleanupFnsRef = React.useRef<Array<() => void>>([])
   const observerRef = React.useRef<IntersectionObserver | null>(null)
   const benchmarkRafRef = React.useRef<number | null>(null)
+  const benchmarkStartTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const isVisibleRef = React.useRef(true)
   const isInViewportRef = React.useRef(true)
   const backgroundProfileRef = React.useRef<BackgroundProfile>('high')
 
+  const BACKGROUND_BENCHMARK_START_DELAY_MS = 2000
   const BACKGROUND_BENCHMARK_MS = 1000
   const BACKGROUND_FPS_UNFOCUSSED = 8
 
@@ -157,6 +159,10 @@ const About: NextPage = () => {
     if (benchmarkRafRef.current) {
       cancelAnimationFrame(benchmarkRafRef.current)
       benchmarkRafRef.current = null
+    }
+    if (benchmarkStartTimeoutRef.current) {
+      clearTimeout(benchmarkStartTimeoutRef.current)
+      benchmarkStartTimeoutRef.current = null
     }
     backgroundPatchRef.current?.dispose?.()
     backgroundPatchRef.current = null
@@ -298,7 +304,9 @@ const About: NextPage = () => {
         }
         window.addEventListener('focus', focusHandler)
         addBackgroundCleanup(() => window.removeEventListener('focus', focusHandler))
-        runAdaptiveBenchmark()
+        benchmarkStartTimeoutRef.current = setTimeout(() => {
+          runAdaptiveBenchmark()
+        }, BACKGROUND_BENCHMARK_START_DELAY_MS)
       }
     })
     backgroundPatchRef.current = patch as CablePatch
